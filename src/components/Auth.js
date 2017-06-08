@@ -2,13 +2,30 @@ import React, { PropTypes as T } from 'react'
 import { browserHistory, Link } from 'react-router'
 import styles from './styles.module.css'
 
-const Auth = ({ username }) => {
+const Auth = ({ updateAuthStatus, username }) => {
+  const logOut = (evt) => {
+    evt.preventDefault()
+    localStorage.removeItem('token')
+    localStorage.removeItem('username')
+    updateAuthStatus({
+      loggedIn: false,
+      username: '',
+      token: '',
+    }, 'login')
+  }
+
   return (
     <div className={styles.auth}>
       { username &&
         <p>
           Logged in as {username}.
-          <a href="#">Logout</a>
+          <a
+            href="#"
+            onClick={evt => logOut(evt)}
+
+          >
+            Logout
+          </a>
         </p>
       }
 
@@ -18,5 +35,6 @@ const Auth = ({ username }) => {
     </div>
   )
 }
+
 
 export default Auth

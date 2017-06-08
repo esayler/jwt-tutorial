@@ -7,24 +7,43 @@ class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      authStatus: {
+        loggedIn: false,
+        username: '',
+        token: '',
+      },
       trains: [],
     }
 
     this.updateTrains = this.updateTrains.bind(this)
+    this.updateAuthStatus = this.updateAuthStatus.bind(this)
   }
 
   fetchTrains() {
     fetch('http://localhost:3001/api/v1/trains')
-    .then(response => response.json())
-    .then(trains => {
-      this.setState({ trains })
-    })
-    .catch(error => {
-      console.log('Error Fetching Trains: ', error)
-    })
+      .then(response => response.json())
+      .then(trains => {
+        this.setState({ trains })
+      })
+      .catch(error => {
+        console.log('Error Fetching Trains: ', error)
+      })
   }
 
   componentDidMount() {
+    let token = localStorage.getItem('token')
+    let username = localStorage.getItem('username')
+
+    if (token && username) {
+      this.setState({
+        authStatus: {
+          loggedIn: true,
+          username,
+          token,
+        },
+      })
+    }
+
     this.fetchTrains()
   }
 
@@ -32,20 +51,27 @@ class App extends React.Component {
     this.setState({ trains })
   }
 
+  updateAuthStatus(authStatus, redirect) {
+    this.setState({ authStatus }, browserHistory.push(`/${redirect}`))
+  }
+
   render() {
-    const { trains } = this.state
+    const { authStatus, trains } = this.state
 
     return (
       <div>
-      <h1>Big Metro City Choo-Choo Train Authority</h1>
-        {React.cloneElement(
-          this.props.children,
-          {
-            trains,
-            updateTrains: this.updateTrains,
-          }
-        )}
-       </div>
+        <h1>Big Metro City Choo-Choo Train Authority</h1>
+        <Auth
+          username={authStatus.username}
+          updateAuthStatus={this.updateAuthStatus}
+        />
+        {React.cloneElement(this.props.children, {
+          authStatus,
+          updateAuthStatus: this.updateAuthStatus,
+          trains,
+          updateTrains: this.updateTrains,
+        })}
+      </div>
     )
   }
 }

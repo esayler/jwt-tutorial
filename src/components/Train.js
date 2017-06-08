@@ -2,7 +2,7 @@ import React, { PropTypes as T } from 'react'
 import styles from './styles.module.css'
 import classNames from 'classnames'
 
-const Train = ({ id, line, status, canEdit, updateTrains }) => {
+const Train = ({ token, id, line, status, canEdit, updateTrains }) => {
   const updateStatus = (event) => {
     const value = event.target.value
     const trainId = event.target.dataset.trainid
@@ -11,12 +11,18 @@ const Train = ({ id, line, status, canEdit, updateTrains }) => {
       method: 'PATCH',
       body: JSON.stringify({
         train: { status: value },
+        token,
       }),
       headers: {
         'Content-Type': 'application/json',
       },
     })
-    .then(response => response.json())
+    .then(res => {
+      if (!res.ok) {
+        throw Error(res.statusText)
+      }
+      return res.json()
+    })
     .then(updatedTrains => {
       updateTrains(updatedTrains)
     })

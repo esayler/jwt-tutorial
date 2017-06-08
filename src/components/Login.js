@@ -18,6 +18,34 @@ export class Login extends React.Component {
     })
   }
 
+  login(evt) {
+    const { updateAuthStatus } = this.props
+
+    fetch('http://localhost:3001/authenticate', {
+      method: 'POST',
+      body: JSON.stringify(this.state),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+    .then(res => {
+      if (!res.ok) { throw Error(res.statusText) }
+      return res.json()
+    })
+    .then(({ username, token }) => {
+      localStorage.setItem('token', token)
+      localStorage.setItem('username', username)
+      updateAuthStatus({
+        loggedIn: true,
+        username,
+        token,
+      }, 'admin')
+    })
+    .catch(err => {
+      console.log('Error: ', err)
+    })
+  }
+
   render() {
     return (
       <div className={styles.login}>
@@ -40,12 +68,13 @@ export class Login extends React.Component {
           />
         </label>
         <label>
-        <button id="submit">Login
-        </button>
+          <button id="submit" onClick={evt => this.login(evt)}>
+            Login
+          </button>
         </label>
       </div>
     )
   }
-};
+}
 
 export default Login
