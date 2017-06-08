@@ -1,20 +1,20 @@
-import React, { PropTypes as T } from 'react';
-import styles from './styles.module.css';
+import React, { PropTypes as T } from 'react'
+import styles from './styles.module.css'
 
 export class Login extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
       username: '',
-      password: ''
+      password: '',
     }
   }
 
   updateProperty(event) {
-    const { name, value } = event.target;
+    const { name, value } = event.target
     this.setState({
-      [name]: value
+      [name]: value,
     })
   }
 
@@ -44,9 +44,8 @@ export class Login extends React.Component {
         </button>
         </label>
       </div>
-    );
+    )
   }
 };
 
-export default Login;
-
+export default Login

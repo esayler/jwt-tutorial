@@ -1,12 +1,11 @@
-import React, { PropTypes as T } from 'react';
-import styles from './styles.module.css';
+import React, { PropTypes as T } from 'react'
+import styles from './styles.module.css'
 
-import Train from './Train';
+import Train from './Train'
 
 export class Admin extends React.Component {
-
   render() {
-    const { trains, updateTrains } = this.props;
+    const { trains, updateTrains } = this.props
 
     return (
       <div id="wrapper">
@@ -26,4 +25,4 @@ export class Admin extends React.Component {
   }
 }
 
-export default Admin;
+export default Admin

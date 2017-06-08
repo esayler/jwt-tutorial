@@ -1,11 +1,11 @@
-import React, { PropTypes as T } from 'react';
-import styles from './styles.module.css';
+import React, { PropTypes as T } from 'react'
+import styles from './styles.module.css'
 
-import Train from './Train';
+import Train from './Train'
 
 export class Home extends React.Component {
   render() {
-    const { trains } = this.props;
+    const { trains } = this.props
 
     return (
       <div id="wrapper">
@@ -23,4 +23,4 @@ export class Home extends React.Component {
   }
 }
 
-export default Home;
+export default Home

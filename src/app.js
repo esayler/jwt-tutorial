@@ -6,7 +6,7 @@ import App from './components/App'
 import Home from './components/Home'
 import Admin from './components/Admin'
 import Login from './components/Login'
-import './app.css';
+import './app.css'
 
 ReactDOM.render(
   <Router history={browserHistory}>
@@ -17,4 +17,4 @@ ReactDOM.render(
     </Route>
   </Router>,
   document.querySelector('#root')
-);
+)

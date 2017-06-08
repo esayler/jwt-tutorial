@@ -1,27 +1,26 @@
-import React, { PropTypes as T } from 'react';
-import styles from './styles.module.css';
-import classNames from 'classnames';
+import React, { PropTypes as T } from 'react'
+import styles from './styles.module.css'
+import classNames from 'classnames'
 
 const Train = ({ id, line, status, canEdit, updateTrains }) => {
-
   const updateStatus = (event) => {
-    const value = event.target.value;
-    const trainId = event.target.dataset.trainid;
+    const value = event.target.value
+    const trainId = event.target.dataset.trainid
 
     fetch(`/api/v1/trains/${trainId}`, {
       method: 'PATCH',
-      body: JSON.stringify({ 
-        train: { status: value }
+      body: JSON.stringify({
+        train: { status: value },
       }),
       headers: {
-        'Content-Type': 'application/json'
-      }
+        'Content-Type': 'application/json',
+      },
     })
     .then(response => response.json())
     .then(updatedTrains => {
-      updateTrains(updatedTrains);
+      updateTrains(updatedTrains)
     })
-    .catch(error => console.log('Error: ', error));
+    .catch(error => console.log('Error: ', error))
   }
 
   return (
@@ -37,7 +36,7 @@ const Train = ({ id, line, status, canEdit, updateTrains }) => {
         </select>
       }
     </div>
-  );
-};
+  )
+}
 
-export default Train;
+export default Train

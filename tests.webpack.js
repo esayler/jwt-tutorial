@@ -1,10 +1,10 @@
-require('babel-polyfill');
+require('babel-polyfill')
 // some setup first
 
-var chai = require('chai');
-var chaiEnzyme = require('chai-enzyme');
+var chai = require('chai')
+var chaiEnzyme = require('chai-enzyme')
 
 chai.use(chaiEnzyme())
 
-var context = require.context('./src', true, /\.spec\.js$/);
-context.keys().forEach(context);
+var context = require.context('./src', true, /\.spec\.js$/)
+context.keys().forEach(context)
